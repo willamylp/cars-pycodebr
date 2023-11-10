@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load l10n %}
+{% block title %}Listagem dos Carros{% endblock title %}
+
+{% block styles %}
+    <!-- Inter Font -->
+    <link href="{% static 'css/InterFont.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/core.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/icon-font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/sweetalert2.min.css' %}" />
+    
+{% endblock styles %}
+
+{% block body %}
+    {% include 'header.html' %}
+    {% include 'menu.html' %}
+
+    {% block content %}
+    
+    <div class="mobile-menu-overlay"></div>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="title">
+                                <h5>Carros Cadastrados</h5>
+                            </div>
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Carros
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-wrap">
+                <div class="product-list">
+                    <ul class="row">
+                        {% for car in cars %}
+                        <li class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="product-box">
+                                <div class="producct-img">
+                                    <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+                                </div>
+                                <div class="product-caption">
+                                    <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
+                                    <h6 class="text-dark">Ano {{ car.model_year|unlocalize  }}</h6>
+                                    <div class="price pt-10">
+                                        <span class="text-secondary">R$ {{ car.value|floatformat:2 }}</span>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-dark border-radius-3">{{ car.plate }}</button>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>				
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+        <script src="{% static 'js/main/core.js' %}"></script>
+        <script src="{% static 'js/main/script.js' %}"></script>
+        <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+    {% endblock script %}
+{% endblock body %}

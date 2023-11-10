@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="pt-br">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="google-site-verification" content="NDcrOBNQb-3YWwaU3zA76Npqv7755WD2lil_fTclAKE" />
+    
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    {% comment %} <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> {% endcomment %}
+    <title>{% block title %}{% endblock%}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    {% block styles %} {% endblock %}
+</head>
+
+{% block body %}
+
+    {% block content %} 
+    
+    {% endblock %}
+
+    {% block scripts %} 
+    {% endblock %}
+    
+
+{% endblock body %}
+
+</html>
