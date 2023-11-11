@@ -46,29 +46,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-wrap">
-                <div class="product-list">
-                    <ul class="row">
-                        {% for car in cars %}
-                        <li class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="product-box">
-                                <div class="producct-img">
-                                    <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
-                                </div>
-                                <div class="product-caption">
-                                    <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
-                                    <h6 class="text-dark">Ano {{ car.model_year|unlocalize  }}</h6>
-                                    <div class="price pt-10">
-                                        <span class="text-secondary">R$ {{ car.value|floatformat:2 }}</span>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-dark border-radius-3">{{ car.plate }}</button>
+
+                <div class="card-box border-radius-10 pd-ltr-20 pb-10 pt-0 mb-30">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">BUSCAR VEÍCULOS</label>
+                                    <i class="icon-copy dw dw-car dw-input-icon label-icon-required"></i>
+                                    <input type="text" name="search" placeholder="Modelo do Veículo" required="" class="form-control form-input input-required" id="search_car">
                                 </div>
                             </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>				
-            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 mb-30">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">&nbsp;</label>
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                                        <i class="icon-copy dw dw-human-resources"></i>
+                                        &nbsp;&nbsp; Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="product-wrap">
+                    <div class="product-list">
+                        <ul class="row">
+                            {% for car in cars %}
+                            <li class="col-lg-4 col-md-6 col-sm-12">
+                                <div class="product-box box-shadow">
+                                    <div class="producct-img">
+                                        <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+                                    </div>
+                                    <div class="product-caption">
+                                        <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
+                                        <h6 class="text-dark">Ano {{ car.model_year|unlocalize  }}</h6>
+                                        <div class="price pt-10">
+                                            <span class="text-secondary">R$ {{ car.value|floatformat:2 }}</span>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-dark border-radius-3">{{ car.plate }}</button>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>				
+                </div>
             </div>
         </div>
     </div>

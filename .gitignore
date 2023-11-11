@@ -8,7 +8,7 @@
 *.pyc
 __pycache__/
 local_settings.py
-media
+#edia
 
 # *.sqlite3
 # *.sqlite
