@@ -2794,7 +2794,8 @@ body.IE .login-wrap .container,body.IE .register-page-wrap .container{
     position:relative;
     border-radius:10px 10px 0 0;
     -webkit-transition:all .8s ease-in-out;
-    transition:all .8s ease-in-out
+    transition:all .8s ease-in-out;
+    min-height: 197px;
 }
 .product-list ul li:hover .producct-img img{
     -webkit-transform:scale(1.3);

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load l10n %}
+{% block title %}Listagem dos Carros{% endblock title %}
+
+{% block styles %}
+    <!-- Inter Font -->
+    <link href="{% static 'css/InterFont.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/core.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/icon-font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/sweetalert2.min.css' %}" />
+    
+{% endblock styles %}
+
+{% block body %}
+    {% include 'header.html' %}
+    {% include 'menu.html' %}
+
+    {% block content %}
+    
+    <div class="mobile-menu-overlay"></div>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        Carros
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Listar Carros
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                {% for msg in messages %}
+                    {% if msg.tags == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {% else %}
+                        <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+                    {% endif %}
+                        <strong>{{ msg }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                <div class="card-box border-radius-10 pd-ltr-20 pb-10 pt-0 mb-30">
+                    
+                    <form method="GET" action="{% url "cars_list" %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">BUSCAR VEÍCULOS</label>
+                                    <i class="icon-copy dw dw-car dw-input-icon label-icon-required"></i>
+                                    <input type="text" name="search_model" placeholder="Modelo do Veículo" required="" class="form-control form-input input-required" id="search_car">
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-3 col-md-3 col-sm-12 mb-30">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">&nbsp;</label>
+                                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                                        <i class="icon-copy dw dw-human-resources"></i>
+                                        &nbsp;&nbsp; Buscar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-12 mb-30">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">&nbsp;</label>
+                                    <a  href="{% url 'cars_list' %}" class="btn btn-secondary btn-md btn-block">
+                                        <i class="icon-copy fi-page-delete"></i>
+                                        &nbsp;&nbsp; Limpar Filtros
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="product-wrap">
+                    <div class="product-list">
+                        {% if cars %}
+                        {{request.}}
+                            {% if request.GET.search_model %}
+                            <div class="alert alert-success box-shadow" role="alert">
+                                <h4 class="alert-heading h4">Veículos Localizados com Sucesso!</h4>
+                                <hr>
+                                <p>
+                                    Total de Registros Encontrados: <strong>{{ cars|length }}</strong>
+                                </p>
+                            </div>
+                            {% endif %}
+                            <ul class="row">
+                                {% for car in cars %}
+                                <li class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="product-box box-shadow">
+                                        <div class="producct-img">
+                                            <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+                                        </div>
+                                        <div class="product-caption">
+                                            <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
+                                            <h6 class="text-dark">Ano {{ car.model_year|unlocalize  }}</h6>
+                                            <div class="price pt-10">
+                                                <span class="text-secondary">R$ {{ car.value|floatformat:2 }}</span>
+                                            </div>
+                                            <button type="button" class="btn btn-outline-dark border-radius-3">{{ car.plate }}</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <div class="pd-20 card-box height-100-p">
+								<div class="alert alert-danger box-shadow" role="alert">
+									<h4 class="alert-heading h4">Nenhum Carro Localizado!</h4>
+									<hr>
+									<p class="mb-0">
+                                        Por favor, insira o modelo correto ou pesquise por um modelo diferente.
+									</p>
+								</div>
+							</div>
+                        {% endif %}
+                    </div>				
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+        <script src="{% static 'js/main/core.js' %}"></script>
+        <script src="{% static 'js/main/script.js' %}"></script>
+        <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+    {% endblock script %}
+{% endblock body %}

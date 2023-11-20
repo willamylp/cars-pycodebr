@@ -13,6 +13,23 @@
     <div class="menu-block customscroll">
         <div class="sidebar-menu icon-style-1 icon-list-style-3">
             <ul id="accordion-menu">
+                {% if user.is_staff %}
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <i class="micon icon-copy dw dw-settings1"></i>
+                            <span class="mtext">Administração</span>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{% url 'admin:index' %}" target="_blank">Page Admin</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+
+                {% endif %}
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle no-arrow">
                         <i class="micon bi bi-house"></i>                       
@@ -31,10 +48,17 @@
                     </a>
                     <ul class="submenu">
                         <li>
-                            {% if 'cars' in request.path %}
-                                <a href="javascript:;" target="_self" class="active">Listar Carros</a>
+                            {% if 'new_car' in request.path %}
+                                <a href="{% url 'new_car' %}" target="_self" class="active">Inserir Carro</a>
                             {% else %}
-                                <a href="javascript:;" target="_self">Listar Carros</a>
+                                <a href="{% url 'new_car' %}" target="_self">Inserir Carro</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if 'cars_list' in request.path %}
+                                <a href="{% url 'cars_list' %}" target="_self" class="active">Listar Carros</a>
+                            {% else %}
+                                <a href="{% url 'cars_list' %}" target="_self">Listar Carros</a>
                             {% endif %}
                         </li>
                     </ul>

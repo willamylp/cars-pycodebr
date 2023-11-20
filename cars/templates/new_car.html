@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load l10n %}
+{% block title %}Novo Carro{% endblock title %}
+
+{% block styles %}
+    <!-- Inter Font -->
+    <link href="{% static 'css/InterFont.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/core.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/icon-font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/sweetalert2.min.css' %}" />
+    
+{% endblock styles %}
+
+{% block body %}
+    {% include 'header.html' %}
+    {% include 'menu.html' %}
+
+    {% block content %}
+    
+    <div class="mobile-menu-overlay"></div>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            {% for msg in messages %}
+                {% if msg.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    <strong>{{ msg }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            {% endfor %}
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        Carros
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Novo Carro
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-box border-radius-10 pd-ltr-20 pb-10 pt-0 mb-30 box-shadow">
+                    <div class="title pt-20">
+                        <h5>Inserir Novo Carro</h5>
+                    </div>
+                    <hr>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Modelo do Carro</label>
+                                    <i class="icon-copy dw dw-car dw-input-icon label-icon-required"></i>
+                                    {{ new_car_form.model|add_class:"form-control form-input input-required"|attr:'placeholder:Informe o Modelo do Carro' }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">    
+                                <div class="form-group mb-0 div-input">
+                                    <div class="form-group mb-0 div-input">
+                                        <label class="weight-600 label-icon-required">Marca do Carro</label>
+                                        {{ new_car_form.brand|add_class:"custom-select2 form-control form-input input-required" }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Ano Fabricação</label>
+                                    <i class="icon-copy dw dw-calendar1 dw-input-icon label-icon-required"></i>
+                                    {{ new_car_form.factory_year|add_class:"form-control form-input input-required"|attr:'placeholder:Ano de Fabricação' }}
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Ano Modelo</label>
+                                    <i class="icon-copy dw dw-calendar-6 dw-input-icon label-icon-required"></i>
+                                    {{ new_car_form.model_year|add_class:"form-control form-input input-required"|attr:'placeholder:Ano do Modelo' }}
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Placa</label>
+                                    <i class="icon-copy dw dw-credit-card dw-input-icon label-icon-required"></i>
+                                    {{ new_car_form.plate|add_class:"form-control form-input input-required"|attr:'placeholder:AAA-0123' }}
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Valor</label>
+                                    <i class="icon-copy dw dw-money-2 dw-input-icon label-icon-required"></i>
+                                    {{ new_car_form.value|add_class:"form-control form-input input-required"|attr:'placeholder:R$' }}
+                                </div>
+                            </div>
+                    
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Imagem do Carro</label>
+                                    {{ new_car_form.photo|add_class:"form-control-file form-control height-auto input-required"|attr:'placeholder:Foto' }}
+                                </div>
+                            </div>
+                        </div>                        
+                        <hr class="end-form">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <i class="icon-copy bi bi-info-square-fill label-icon-required"></i> Campos Obrigatórios
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <i class="icon-copy bi bi-info-square-fill icon-non-required"></i> Campos Opcionais
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row mb-10">
+                            <div class="col-md-4 col-sm-12"></div>
+                                <div class="col-md-4 col-sm-12">
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                                        SALVAR &nbsp;
+                                        <i class="icon-copy dw dw-checked"></i>
+                                    </button>
+                                </div>
+                            <div class="col-md-4 col-sm-12"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+        <script src="{% static 'js/main/core.js' %}"></script>
+        <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+        <script src="{% static 'js/main/layout-settings.js' %}"></script>
+        <script src="{% static 'js/main/script.js' %}"></script>
+    {% endblock script %}
+{% endblock body %}
