@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load l10n %}
+{% block title %}Registrar Usuário{% endblock title %}
+
+{% block styles %}
+    <!-- Inter Font -->
+    <link href="{% static 'css/InterFont.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/core.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/icon-font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/sweetalert2.min.css' %}" />
+    
+{% endblock styles %}
+
+{% block body %}
+    {% include 'header.html' %}
+    {% include 'menu.html' %}
+
+    {% block content %}
+    
+    <div class="mobile-menu-overlay"></div>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            {% for msg in messages %}
+                {% if msg.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
+                {% else %}
+                    <div class="alert alert-{{msg.tags}} alert-dismissible fade show box-shadow" role="alert">
+                {% endif %}
+                    <strong>{{ msg }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="icon-copy ion-close-round box-shadow"></i>
+                    </button>
+                </div>
+            {% endfor %}
+
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">Usuários</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Registrar Usuário</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                {% if form_error|length > 0 %}
+                    {% for field, error in form_error.items %}
+                        <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
+                            {% if field == 'username' %}
+                                <strong>&rarr; Usuário:</strong>
+                            {% else %}
+                                <strong>&rarr; Senha:</strong>
+                            {% endif %}
+                                <span>{{ error }}</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">
+                                    <i class="icon-copy ion-close-round box-shadow"></i>
+                                </span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="card-box border-radius-10 pd-ltr-20 pb-10 pt-0 mb-30 box-shadow">
+                    <div class="title pt-20">
+                        <h5>REGISTRAR NOVO USUÁRIO</h5>
+                    </div>
+                    <hr>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group mb-5 div-input">
+                                    <label class="label-icon-required">Nome do Usuário</label>
+                                    <i class="icon-copy dw dw-add-user dw-input-icon label-icon-required"></i>
+                                    {{ user_form.username|add_class:"form-control form-input input-required"|attr:'placeholder:Username' }}
+                                </div>
+                                <small>150 caracteres ou menos. <br> Letras, números e @/./+/-/_ apenas.</small>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group mb-5 div-input">
+                                    <label class="label-icon-required">Senha</label>
+                                    <i class="icon-copy dw dw-password dw-input-icon label-icon-required"></i>
+                                    {{ user_form.password1|add_class:"form-control form-input input-required"|attr:'placeholder:Senha' }}
+                                </div>
+                                <small>
+                                    <ul>
+                                        <li>&rarr; Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
+                                        <li>&rarr; Sua senha precisa conter pelo menos 8 caracteres.</li>
+                                        <li>&rarr; Sua senha não pode ser uma senha comumente utilizada.</li>
+                                        <li>&rarr; Sua senha não pode ser inteiramente numérica.</li>
+                                    </ul>
+                                </small>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group mb-0 div-input">
+                                    <label class="label-icon-required">Confirmar Senha</label>
+                                    <i class="icon-copy dw dw-password dw-input-icon label-icon-required"></i>
+                                    {{ user_form.password2|add_class:"form-control form-input input-required"|attr:'placeholder:Repetir Senha' }}
+                                </div>
+                                <small>Informe a mesma senha informada anteriormente, para verificação.</small>
+                            </div>
+                            
+                        </div>                        
+                        <hr class="end-form">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <i class="icon-copy bi bi-info-square-fill label-icon-required"></i> Campos Obrigatórios
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <i class="icon-copy bi bi-info-square-fill icon-non-required"></i> Campos Opcionais
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row mb-10">
+                            <div class="col-md-4 col-sm-12"></div>
+                                <div class="col-md-4 col-sm-12">
+                                    <button type="submit" class="btn btn-success btn-lg btn-block">
+                                        SALVAR &nbsp;
+                                        <i class="icon-copy dw dw-checked"></i>
+                                    </button>
+                                </div>
+                            <div class="col-md-4 col-sm-12"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+        <script src="{% static 'js/main/core.js' %}"></script>
+        <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+        <script src="{% static 'js/main/layout-settings.js' %}"></script>
+        <script src="{% static 'js/main/script.js' %}"></script>
+    {% endblock script %}
+{% endblock body %}

@@ -13,6 +13,15 @@
     <div class="menu-block customscroll">
         <div class="sidebar-menu icon-style-1 icon-list-style-3">
             <ul id="accordion-menu">
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle no-arrow">
+                        <i class="micon bi bi-house"></i>                       
+                        <span class="mtext">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
                 {% if user.is_staff %}
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -25,17 +34,23 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
 
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <i class="micon icon-copy dw dw-user1"></i>
+                            <span class="mtext">Usuários</span>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                {% if 'register' in request.path %}
+                                    <a href="{% url 'register' %}" target="_self" class="active">Registrar Usuário</a>
+                                {% else %}
+                                    <a href="{% url 'register' %}" target="_self">Registrar Usuário</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </li>
                 {% endif %}
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle no-arrow">
-                        <i class="micon bi bi-house"></i>                       
-                        <span class="mtext">Home</span>
-                    </a>
-                </li>
                 
                 <li>
                     <div class="dropdown-divider"></div>
