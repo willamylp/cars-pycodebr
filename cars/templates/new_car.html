@@ -28,16 +28,17 @@
         <div class="pd-ltr-20 xs-pd-20-10">
             {% for msg in messages %}
                 {% if msg.tags == 'error' %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
                 {% else %}
-                    <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+                    <div class="alert alert-{{msg.tags}} alert-dismissible fade show box-shadow" role="alert">
                 {% endif %}
                     <strong>{{ msg }}</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <i class="icon-copy ion-close-round box-shadow"></i>
                     </button>
                 </div>
             {% endfor %}
+
             <div class="min-height-200px">
                 <div class="page-header">
                     <div class="row">
@@ -47,21 +48,36 @@
                                     <li class="breadcrumb-item">
                                         <a href="index.html">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item" aria-current="page">
-                                        Carros
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Novo Carro
-                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">Carros</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Novo Carro</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
 
+                {% if form_error|length > 0 %}
+                    {% for field, error in form_error.items %}
+                        <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
+                            {% if field == 'value' %}
+                                <strong>&rarr; Valor:</strong>
+                            {% elif field == 'factory_year' %}
+                                <strong>&rarr; Ano de Fabricação:</strong>
+                            {% endif %}
+                            
+                            <span>{{ error }}</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">
+                                    <i class="icon-copy ion-close-round box-shadow"></i>
+                                </span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
                 <div class="card-box border-radius-10 pd-ltr-20 pb-10 pt-0 mb-30 box-shadow">
                     <div class="title pt-20">
-                        <h5>Inserir Novo Carro</h5>
+                        <h5>INSERIR NOVO CARRO</h5>
                     </div>
                     <hr>
                     <form method="post" enctype="multipart/form-data">
@@ -116,7 +132,7 @@
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="form-group mb-0 div-input">
                                     <label class="label-icon-required">Imagem do Carro</label>
-                                    {{ new_car_form.photo|add_class:"form-control-file form-control height-auto input-required"|attr:'placeholder:Foto' }}
+                                    {{ new_car_form.photo|add_class:"form-control-file form-control input-required"|attr:'placeholder:Foto' }}
                                 </div>
                             </div>
                         </div>                        

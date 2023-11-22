@@ -4319,3 +4319,43 @@ ul#accordion-menu {
 .vis-hidden {
     visibility: hidden;
 }
+
+input.form-control-file {
+    height: auto;
+    cursor: pointer;
+    border-top-width: 2px;
+        border-right-width: 2px;
+        border-bottom-width: 2px;
+        border-left-width: 2px;
+    border-top-style: dashed;
+        border-right-style: dashed;
+        border-bottom-style: dashed;
+        border-left-style: dashed;
+    border-top-color: #bbb;
+        border-right-color: #bbb;
+        border-bottom-color: #bbb;
+        border-left-color: #bbb;
+    font-weight: bold;
+    font-size: 12pt;
+}
+input.form-control-file:hover {
+    border-color: #1b00ff;
+}
+.form-control-file::file-selector-button {
+    background: white;
+    display: inline-block;
+    border: 1px solid #17a2b8;
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 10px 10px 10px 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 12pt;
+    color: #17a2b8;
+}
+.form-control-file:hover::file-selector-button {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+}
