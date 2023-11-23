@@ -42,10 +42,10 @@
                         </a>
                         <ul class="submenu">
                             <li>
-                                {% if 'register' in request.path %}
-                                    <a href="{% url 'register' %}" target="_self" class="active">Registrar Usuário</a>
+                                {% if 'admin_register' in request.path %}
+                                    <a href="{% url 'admin_register' %}" target="_self" class="active">Registrar Usuário</a>
                                 {% else %}
-                                    <a href="{% url 'register' %}" target="_self">Registrar Usuário</a>
+                                    <a href="{% url 'admin_register' %}" target="_self">Registrar Usuário</a>
                                 {% endif %}
                             </li>
                         </ul>

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Login — Carros PycodeBR{% endblock title %}
+
+{% block styles %}
+        
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="{% static 'css/fonts/MaterialSymbolsOutlined.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/core.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/icon-font.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/sweetalert2.min.css' %}" />
+
+{% endblock styles %}
+
+{% block body %}
+
+<body class="login-page">
+
+    {% block content %}
+    <div class="login-header box-shadow">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="brand-logo">
+                <a href="javascript:;">
+                    <img src="{% static 'images/logo-login-page.svg' %}" alt="" />
+                </a>
+            </div>
+            <div class="login-menu">
+                <ul>
+                    <li>
+                        <a href="{% url "login" %}" class="btn btn-lg btn-block btn-outline-primary">
+                            <i class="icon-copy dw dw-enter"></i>
+                            &nbsp; Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-lg-12">
+                    {% if form_error|length > 0 %}
+                        {% for field, error in form_error.items %}
+                            <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
+                                {% if field == 'username' %}
+                                    <strong>&rarr; Usuário:</strong>
+                                {% else %}
+                                    <strong>&rarr; Senha:</strong>
+                                {% endif %}
+                                    <span>{{ error }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">
+                                        <i class="icon-copy ion-close-round box-shadow"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="col-md-6 col-lg-6 text-center">
+                    <img src="{% static 'images/register-page.svg' %}" alt="" />
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="bg-white box-shadow border-radius-10 pd-30">
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">Registrar-se</h2>
+                        </div>
+                        <hr class="hr-profile">
+                        <form id="sign_in" method="POST">
+                            {% csrf_token %}
+                            <div class="row pb-30">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group mb-5 div-input">
+                                        <label class="text-primary weight-600">Nome do Usuário</label>
+                                        <i class="icon-copy dw dw-add-user dw-input-icon text-primary"></i>
+                                        {{ user_form.username|add_class:"form-control form-input input-required"|attr:'placeholder:Username' }}
+                                    </div>
+                                    {% comment %} <small>150 caracteres ou menos. <br> Letras, números e @/./+/-/_ apenas.</small> {% endcomment %}
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group mb-5 div-input">
+                                        <label class="text-primary weight-600">Senha</label>
+                                        <i class="icon-copy dw dw-password dw-input-icon text-primary"></i>
+                                        {{ user_form.password1|add_class:"form-control form-input input-required"|attr:'placeholder:Senha' }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group mb-0 div-input">
+                                        <label class="text-primary weight-600">Confirmar Senha</label>
+                                        <i class="icon-copy dw dw-password dw-input-icon text-primary"></i>
+                                        {{ user_form.password2|add_class:"form-control form-input input-required"|attr:'placeholder:Repetir Senha' }}
+                                    </div>
+                                </div>
+                            </div>                        
+                            
+                            
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group mb-0">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                                            <i class="icon-copy dw dw-checked"></i>
+                                            &nbsp; SALVAR
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <div class="text-center mb-1">
+                                <a href="https://github.com/willamylp/cars-pycodebr" target="_blank" class="btn btn-light btn-block btn-sm">
+                                    <span class="text-danger weight-600">VER PROJETO</span>
+                                    <span class="weight-600">NO GITHUB</span>
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <small>
+                        Template Inspirado em: 
+                        <a href="https://dropways.github.io/deskapp/" target="_blank">DeskApp - Bootstrap 4 Admin Template By Ankit Hingarajiya</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'js/main/core.js' %}"></script>
+    <script src="{% static 'js/main/script.js' %}"></script>
+    <script src="{% static 'js/main/layout-settings.js' %}"></script>
+    <script src="{% static 'js/script_login.js' %}"></script>
+    <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+    
+{% endblock scripts %}
+    </body>
+{% endblock body %}
+

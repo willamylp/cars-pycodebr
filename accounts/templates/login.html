@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Login — Carros PycodeBR{% endblock title %}
+
+{% block styles %}
+        
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="{% static 'css/fonts/MaterialSymbolsOutlined.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/core.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/icon-font.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main/sweetalert2.min.css' %}" />
+
+{% endblock styles %}
+
+{% block body %}
+
+<body class="login-page">
+
+    {% block content %}
+    <div class="login-header box-shadow">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="brand-logo">
+                <a href="javascript:;">
+                    <img src="{% static 'images/logo-login-page.svg' %}" alt="" />
+                </a>
+            </div>
+            <div class="login-menu">
+                <ul>
+                    <li>
+                        <a href="{% url "user_register" %}" class="btn btn-lg btn-block btn-outline-primary">
+                            <i class="icon-copy dw dw-add-user"></i>
+                            &nbsp; Registrar-se
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% for msg in messages %}
+        {% if msg.tags == 'error' %}
+            <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
+        {% else %}
+            <div class="alert alert-{{msg.tags}} alert-dismissible fade show box-shadow" role="alert">
+        {% endif %}
+            <strong>{{ msg }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="icon-copy ion-close-round box-shadow"></i>
+            </button>
+        </div>
+    {% endfor %}
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-6 text-center">
+                    <img src="{% static 'images/login-page.svg' %}" alt="" />
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="login-box bg-white box-shadow border-radius-10">
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">Login no Sistema</h2>
+                        </div>
+                        <hr class="hr-profile">
+                        
+                        {% comment %} <div class="alert alert-warning text-center" role="alert">
+                            Acesso restrito a usuários autenticados pelos Administradores do Sistema!
+                        </div>
+                        <hr class="hr-profile"> {% endcomment %}
+
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="input-group custom">
+                                
+                                {{ login_form.username|add_class:"form-control form-control-lg input-required"|attr:"autofocus"|attr:"autocapitalize:none"|attr:"autocomplete:username"|attr:"placeholder:Usuário" }}
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text">
+                                        <i class="icon-copy dw dw-user1 label-icon-required"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="input-group custom">
+                                {{ login_form.password|add_class:"form-control form-control-lg input-required"|attr:"autocomplete:current-password"|attr:"placeholder:Senha" }}
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text">
+                                        <span class="material-symbols-outlined label-icon-required" id="togglePassword"> visibility_off </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 mb-20">
+                                    <div class="input-group mb-0">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                            ENTRAR &nbsp;
+                                            <span class="icon-copy ti-angle-double-right"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <div class="text-center mb-1">
+                                <a href="https://github.com/willamylp/cars-pycodebr" target="_blank" class="btn btn-light btn-block btn-sm">
+                                    <span class="text-danger weight-600">VER PROJETO</span>
+                                    <span class="weight-600">NO GITHUB</span>
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <small>
+                        Template Inspirado em: 
+                        <a href="https://dropways.github.io/deskapp/" target="_blank">DeskApp - Bootstrap 4 Admin Template By Ankit Hingarajiya</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static 'js/main/core.js' %}"></script>
+    <script src="{% static 'js/main/script.js' %}"></script>
+    <script src="{% static 'js/main/layout-settings.js' %}"></script>
+    <script src="{% static 'js/script_login.js' %}"></script>
+    <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+    
+{% endblock scripts %}
+    </body>
+{% endblock body %}
+
