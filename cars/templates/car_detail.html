@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load l10n %}
+{% block title %}Listagem dos Carros{% endblock title %}
+
+{% block styles %}
+    <!-- Inter Font -->
+    <link href="{% static 'css/InterFont.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/core.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/icon-font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main/sweetalert2.min.css' %}" />
+    
+{% endblock styles %}
+
+{% block body %}
+    {% include 'header.html' %}
+    {% include 'menu.html' %}
+
+    {% block content %}
+    
+    <div class="mobile-menu-overlay"></div>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <nav aria-label="breadcrumb" role="navigation">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        Carros
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        Listar Carros
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Detalhes do Carro
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                {% for msg in messages %}
+                    {% if msg.tags == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {% else %}
+                        <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+                    {% endif %}
+                        <strong>{{ msg }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                <div class="card-box pd-30">
+                    <div class="row clearfix">
+                        <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                        <div class="col-sm-12 col-md-12 col-lg-8">
+                            <div class="alert alert-secondary text-center box-shadow" role="alert">
+                                <h4 class="text-dark text-center">
+                                    {{ car.brand|upper }} {{ car.model|upper }}
+                                </h4>
+                            </div>
+                            <div class="card card-box border-radius-10 box-shadow">
+                                <img class="card-img-top pb-20" src="{{ car.photo.url }}" alt="{{car.brand}} {{ car.model }} {{ car.model_year|unlocalize }}">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <ul class="text-dark">
+                                                <li class="pb-10">
+                                                    <h6>
+                                                        <i class="icon-copy dw dw-calendar1"></i>&nbsp; Fabricação: &nbsp;&nbsp;{{ car.factory_year|unlocalize  }}
+                                                    </h6>
+                                                </li>
+                                                <li class="pb-10">
+                                                    <h6>
+                                                        <i class="icon-copy dw dw-calendar-6"></i>&nbsp; Ano Modelo: {{ car.model_year|unlocalize  }}
+                                                    </h6>
+                                                </li>
+                                                <li class="pb-10">
+                                                    <h6>
+                                                        <i class="icon-copy dw dw-credit-card"></i>&nbsp; Placa: &nbsp;&nbsp;&nbsp;{{ car.plate }}
+                                                    </h6>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="alert alert-primary text-center box-shadow" role="alert">
+                                                <h5 class="pb-10">Valor:</h5>
+                                                <h6>R$ {{ car.value|floatformat:2 }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <a class="btn btn-outline-info btn-md btn-block" href="{% url 'car_update' car.pk %}">
+                                                <i class="icon-copy dw dw-edit2"></i>
+                                                &nbsp;&nbsp; Editar
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <a class="btn btn-outline-danger btn-md btn-block" href="javascript:;" onClick="ConfirmarDelete({{car.pk}})">
+                                                <i class="icon-copy dw dw-delete-3"></i>
+                                                &nbsp;&nbsp; Deletar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    {% block script %}
+        <script src="{% static 'js/main/core.js' %}"></script>
+        <script src="{% static 'js/main/script.js' %}"></script>
+        <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
+        <script src="{% static 'js/main/confirm-delete.js' %}"></script>
+    {% endblock script %}
+{% endblock body %}

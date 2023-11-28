@@ -49,7 +49,7 @@
 
                 {% for msg in messages %}
                     {% if msg.tags == 'error' %}
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
                     {% else %}
                         <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
                     {% endif %}
@@ -99,7 +99,6 @@
                 <div class="product-wrap">
                     <div class="product-list">
                         {% if cars %}
-                        {{request.}}
                             {% if request.GET.search_model %}
                             <div class="alert alert-success box-shadow" role="alert">
                                 <h4 class="alert-heading h4">Veículos Localizados com Sucesso!</h4>
@@ -111,21 +110,23 @@
                             {% endif %}
                             <ul class="row">
                                 {% for car in cars %}
-                                <li class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="product-box box-shadow">
-                                        <div class="producct-img">
-                                            <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
-                                        </div>
-                                        <div class="product-caption">
-                                            <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
-                                            <h6 class="text-dark">Ano {{ car.model_year|unlocalize  }}</h6>
-                                            <div class="price pt-10">
-                                                <span class="text-secondary">R$ {{ car.value|floatformat:2 }}</span>
+                                    <li class="col-lg-4 col-md-6 col-sm-12">
+                                        <a href="{% url 'car_detail' car.pk %}">
+                                            <div class="product-box box-shadow">
+                                                <div class="producct-img">
+                                                    <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+                                                </div>
+                                                <div class="product-caption">
+                                                    <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
+                                                    <h6 class="text-dark">Ano {{ car.model_year|unlocalize  }}</h6>
+                                                    <div class="price pt-10">
+                                                        <span class="text-secondary">R$ {{ car.value|floatformat:2 }}</span>
+                                                    </div>
+                                                    <button type="button" class="btn btn-outline-dark border-radius-3">{{ car.plate }}</button>
+                                                </div>
                                             </div>
-                                            <button type="button" class="btn btn-outline-dark border-radius-3">{{ car.plate }}</button>
-                                        </div>
-                                    </div>
-                                </li>
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         {% else %}

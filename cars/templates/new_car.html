@@ -49,7 +49,11 @@
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">Carros</li>
-                                    <li class="breadcrumb-item active" aria-current="page">Novo Carro</li>
+                                    {% if 'car_update' in request.path %}
+                                        <li class="breadcrumb-item active" aria-current="page">Atualizar Carro</li>
+                                    {% else %}
+                                        <li class="breadcrumb-item active" aria-current="page">Novo Carro</li>
+                                    {% endif %}
                                 </ol>
                             </nav>
                         </div>
@@ -77,7 +81,11 @@
 
                 <div class="card-box border-radius-10 pd-ltr-20 pb-10 pt-0 mb-30 box-shadow">
                     <div class="title pt-20">
-                        <h5>INSERIR NOVO CARRO</h5>
+                        {% if 'car_update' in request.path %}
+                            <h5>ATUALIZAR CARRO</h5>
+                        {% else %}
+                            <h5>INSERIR NOVO CARRO</h5>
+                        {% endif %}
                     </div>
                     <hr>
                     <form method="post" enctype="multipart/form-data">
@@ -89,14 +97,14 @@
                                 <div class="form-group mb-0 div-input">
                                     <label class="label-icon-required">Modelo do Carro</label>
                                     <i class="icon-copy dw dw-car dw-input-icon label-icon-required"></i>
-                                    {{ new_car_form.model|add_class:"form-control form-input input-required"|attr:'placeholder:Informe o Modelo do Carro' }}
+                                    {{ form.model|add_class:"form-control form-input input-required"|attr:'placeholder:Informe o Modelo do Carro' }}
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">    
                                 <div class="form-group mb-0 div-input">
                                     <div class="form-group mb-0 div-input">
                                         <label class="weight-600 label-icon-required">Marca do Carro</label>
-                                        {{ new_car_form.brand|add_class:"custom-select2 form-control form-input input-required" }}
+                                        {{ form.brand|add_class:"custom-select2 form-control form-input input-required" }}
                                     </div>
                                 </div>
                             </div>
@@ -104,35 +112,35 @@
                                 <div class="form-group mb-0 div-input">
                                     <label class="label-icon-required">Ano Fabricação</label>
                                     <i class="icon-copy dw dw-calendar1 dw-input-icon label-icon-required"></i>
-                                    {{ new_car_form.factory_year|add_class:"form-control form-input input-required"|attr:'placeholder:Ano de Fabricação' }}
+                                    {{ form.factory_year|add_class:"form-control form-input input-required"|attr:'placeholder:Ano de Fabricação' }}
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12">
                                 <div class="form-group mb-0 div-input">
                                     <label class="label-icon-required">Ano Modelo</label>
                                     <i class="icon-copy dw dw-calendar-6 dw-input-icon label-icon-required"></i>
-                                    {{ new_car_form.model_year|add_class:"form-control form-input input-required"|attr:'placeholder:Ano do Modelo' }}
+                                    {{ form.model_year|add_class:"form-control form-input input-required"|attr:'placeholder:Ano do Modelo' }}
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12">
                                 <div class="form-group mb-0 div-input">
                                     <label class="label-icon-required">Placa</label>
                                     <i class="icon-copy dw dw-credit-card dw-input-icon label-icon-required"></i>
-                                    {{ new_car_form.plate|add_class:"form-control form-input input-required"|attr:'placeholder:AAA-0123' }}
+                                    {{ form.plate|add_class:"form-control form-input input-required"|attr:'placeholder:AAA-0123' }}
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12">
                                 <div class="form-group mb-0 div-input">
                                     <label class="label-icon-required">Valor</label>
                                     <i class="icon-copy dw dw-money-2 dw-input-icon label-icon-required"></i>
-                                    {{ new_car_form.value|add_class:"form-control form-input input-required"|attr:'placeholder:R$' }}
+                                    {{ form.value|add_class:"form-control form-input input-required"|attr:'placeholder:R$' }}
                                 </div>
                             </div>
                     
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group mb-0 div-input">
-                                    <label class="label-icon-required">Imagem do Carro</label>
-                                    {{ new_car_form.photo|add_class:"form-control-file form-control input-required"|attr:'placeholder:Foto' }}
+                                <div class="form-group mb-0 div-input" id="div-input-image">
+                                    <label class="label-icon-required">Imagem do Carro</label><br>
+                                    {{ form.photo|add_class:"form-control-file form-control input-required"|attr:'placeholder:Foto' }}
                                 </div>
                             </div>
                         </div>                        
@@ -147,14 +155,31 @@
                         </div>
                         <hr />
                         <div class="row mb-10">
-                            <div class="col-md-4 col-sm-12"></div>
-                                <div class="col-md-4 col-sm-12">
-                                    <button type="submit" class="btn btn-success btn-lg btn-block">
-                                        SALVAR &nbsp;
-                                        <i class="icon-copy dw dw-checked"></i>
-                                    </button>
-                                </div>
-                            <div class="col-md-4 col-sm-12"></div>
+                            {% if 'car_update' in request.path %}
+                                <div class="col-md-2 col-sm-12"></div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                                            SALVAR &nbsp;
+                                            <i class="icon-copy dw dw-checked"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <a class="btn btn-danger btn-md btn-block" href="javascript:;" onClick="ConfirmarDelete({{car.pk}})">
+                                            <i class="icon-copy dw dw-delete-3"></i>
+                                            &nbsp;&nbsp; DELETAR
+                                        </a>
+                                    </div>
+                                <div class="col-md-2 col-sm-12"></div>
+                            {% else %}
+                                <div class="col-md-4 col-sm-12"></div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                                            SALVAR &nbsp;
+                                            <i class="icon-copy dw dw-checked"></i>
+                                        </button>
+                                    </div>
+                                <div class="col-md-4 col-sm-12"></div>
+                            {% endif %}
                         </div>
                     </form>
                 </div>
@@ -168,5 +193,6 @@
         <script src="{% static 'js/main/sweetalert2.all.min.js' %}"></script>
         <script src="{% static 'js/main/layout-settings.js' %}"></script>
         <script src="{% static 'js/main/script.js' %}"></script>
+        <script src="{% static 'js/main/confirm-delete.js' %}"></script>
     {% endblock script %}
 {% endblock body %}

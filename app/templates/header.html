@@ -3,24 +3,37 @@
 <div class="header">
     <div class="header-left">
         <div class="menu-icon icon-copy dw dw-right-indent"></div>
-        <div class="title header-info-user">
-            <h6>
-                <span class="text-primary">
-                    {{user.first_name|upper }} {{ user.last_name|upper}}
-                </span>
-                <br>
-                <small class="weight-600">{{ user.username}} | {{ user.email }}</small>
-            </h6>
-        </div>
-    </div>
-    <div class="header-right">        
-        <div class="user-info-dropdown">
-            <div class="dropdown">
-                <a class="btn btn-danger btn-lg btn-block width-100-px" href="javascript:;}" style="padding: 12px; margin: 7px 0">
-                    <i class="icon-copy dw dw-logout1"></i>
-                    &nbsp;&nbsp; SAIR
-                </a>
+        {% if user.is_authenticated %}
+            <div class="title header-info-user">
+                <h6>
+                    <span class="text-primary">
+                        {{user.first_name|upper }} {{ user.last_name|upper}}
+                    </span>
+                    <br>
+                    <small class="weight-600">{{ user.username}} | {{ user.email }}</small>
+                </h6>
             </div>
-        </div>
+        {% endif %}
+    </div>
+    <div class="header-right">
+        {% if user.is_authenticated %}
+            <div class="user-info-dropdown">
+                <div class="dropdown">
+                    <a class="btn btn-danger btn-lg btn-block width-100-px" href="{% url "logout" %}" style="padding: 12px; margin: 7px 0">
+                        <i class="icon-copy dw dw-logout1"></i>
+                        &nbsp;&nbsp; SAIR
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="user-info-dropdown">
+                <div class="dropdown">
+                    <a href="{% url "login" %}" class="btn btn-lg btn-block btn-outline-primary width-100-px" style="padding: 12px; margin: 7px 0">
+                        <i class="icon-copy dw dw-enter"></i>
+                        &nbsp; Login
+                    </a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>

@@ -62,15 +62,17 @@
                         <span class="mtext">Carros</span>
                     </a>
                     <ul class="submenu">
+                        {% if user.is_authenticated %}
+                            <li>
+                                {% if 'new_car' in request.path or 'car_update' in request.path %}
+                                    <a href="{% url 'new_car' %}" target="_self" class="active">Inserir Carro</a>
+                                {% else %}
+                                    <a href="{% url 'new_car' %}" target="_self">Inserir Carro</a>
+                                {% endif %}
+                            </li>
+                        {% endif %}
                         <li>
-                            {% if 'new_car' in request.path %}
-                                <a href="{% url 'new_car' %}" target="_self" class="active">Inserir Carro</a>
-                            {% else %}
-                                <a href="{% url 'new_car' %}" target="_self">Inserir Carro</a>
-                            {% endif %}
-                        </li>
-                        <li>
-                            {% if 'cars_list' in request.path %}
+                            {% if 'cars_list' in request.path or 'car_detail' in request.path %}
                                 <a href="{% url 'cars_list' %}" target="_self" class="active">Listar Carros</a>
                             {% else %}
                                 <a href="{% url 'cars_list' %}" target="_self">Listar Carros</a>
