@@ -103,20 +103,22 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <a class="btn btn-outline-info btn-md btn-block" href="{% url 'car_update' car.pk %}">
-                                                <i class="icon-copy dw dw-edit2"></i>
-                                                &nbsp;&nbsp; Editar
-                                            </a>
+                                    {% if user.is_authenticated %}
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <a class="btn btn-outline-info btn-md btn-block" href="{% url 'car_update' car.pk %}">
+                                                    <i class="icon-copy dw dw-edit2"></i>
+                                                    &nbsp;&nbsp; Editar
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <a class="btn btn-outline-danger btn-md btn-block" href="javascript:;" onClick="ConfirmarDelete({{car.pk}})">
+                                                    <i class="icon-copy dw dw-delete-3"></i>
+                                                    &nbsp;&nbsp; Deletar
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <a class="btn btn-outline-danger btn-md btn-block" href="javascript:;" onClick="ConfirmarDelete({{car.pk}})">
-                                                <i class="icon-copy dw dw-delete-3"></i>
-                                                &nbsp;&nbsp; Deletar
-                                            </a>
-                                        </div>
-                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
