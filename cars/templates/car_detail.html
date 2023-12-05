@@ -102,6 +102,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="row mt-20 mb-30">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <h6>
+                                                <i class="icon-copy bi bi-info-square-fill"></i>&nbsp; Biografia:
+                                            </h6>
+                                            <footer class="blockquote-footer text-justify pt-10">
+                                                <small class="text-muted font-12">
+                                                    {{ car.bio }}
+                                                </small>
+                                            </footer>
+                                        </div>
+                                    </div>
                                     <hr>
                                     {% if user.is_authenticated %}
                                         <div class="row">
