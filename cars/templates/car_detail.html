@@ -78,17 +78,19 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <ul class="text-dark">
-                                                <li class="pb-10">
+                                                <li>
                                                     <h6>
                                                         <i class="icon-copy dw dw-calendar1"></i>&nbsp; Fabricação: &nbsp;&nbsp;{{ car.factory_year|unlocalize  }}
                                                     </h6>
                                                 </li>
-                                                <li class="pb-10">
+                                                <hr>
+                                                <li>
                                                     <h6>
                                                         <i class="icon-copy dw dw-calendar-6"></i>&nbsp; Ano Modelo: {{ car.model_year|unlocalize  }}
                                                     </h6>
                                                 </li>
-                                                <li class="pb-10">
+                                                <hr>
+                                                <li>
                                                     <h6>
                                                         <i class="icon-copy dw dw-credit-card"></i>&nbsp; Placa: &nbsp;&nbsp;&nbsp;{{ car.plate }}
                                                     </h6>
@@ -96,13 +98,15 @@
                                             </ul>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="alert alert-primary text-center box-shadow" role="alert">
-                                                <h5 class="pb-10">Valor:</h5>
-                                                <h6>R$ {{ car.value|floatformat:2 }}</h6>
+                                            <div class="alert alert-success text-center box-shadow pt-30 pb-30" role="alert">
+                                                <h4 class="pb-10">
+                                                    <i class="icon-copy dw dw-money-2"></i> &nbsp;Valor:
+                                                </h4>
+                                                <h5>R$ {{ car.value|floatformat:2 }}</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    <hr>
                                     <div class="row mt-20 mb-30">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <h6>
