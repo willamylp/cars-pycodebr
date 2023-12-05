@@ -27,3 +27,17 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.brand.name} | {self.model}"
+    
+
+class CarInvetory(models.Model):
+    cars_count = models.IntegerField(verbose_name="Carros em Estoque")
+    cars_value = models.FloatField(verbose_name="Valor Total em Estoque")
+    created_at = models.DateTimeField(verbose_name="Data de Registro", auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.cars_count} - R$ {self.cars_value:, .2f}"
+    
+        
