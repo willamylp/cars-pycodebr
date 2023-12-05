@@ -2,7 +2,8 @@ from django.db.models.signals import pre_save, pre_delete, post_save, post_delet
 from django.dispatch import receiver
 from django.db.models import Sum
 from cars.models import Car, CarInvetory
-
+import os
+from app import settings
 
 def car_invetory_update():
     cars_count = Car.objects.all().count()
@@ -32,4 +33,7 @@ def car_pre_save(sender, instance, **kwargs):
 
 @receiver(pre_delete, sender=Car)
 def car_pre_delete(sender, instance, **kwargs):
-    pass
+    if instance.photo:
+        file_path = os.path.join(settings.MEDIA_ROOT, str(instance.photo))
+        if os.path.exists(file_path):
+            os.remove(file_path)
