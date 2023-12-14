@@ -73,7 +73,12 @@
                                 </h4>
                             </div>
                             <div class="card card-box border-radius-10 box-shadow">
-                                <img class="card-img-top pb-20" src="{{ car.photo.url }}" alt="{{car.brand}} {{ car.model }} {{ car.model_year|unlocalize }}">
+                                {% if car.photo %}
+                                    <img class="card-img-top pb-20" src="{{ car.photo.url }}" alt="{{car.brand}} {{ car.model }} {{ car.model_year|unlocalize }}">
+                                {% else %}
+                                    <img class="card-img-top pb-20" src="{% static 'images/Image_not_available.png' %}" alt="">
+                                {% endif %}
+                                
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-12">

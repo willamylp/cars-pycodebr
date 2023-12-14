@@ -20,7 +20,7 @@ class Car(models.Model):
     plate = models.CharField(verbose_name="Placa", max_length=10, blank=True, null=True)
     value = models.FloatField(verbose_name="Valor", blank=True, null=True)
     photo = models.ImageField(verbose_name="Foto", upload_to='cars/', blank=True, null=True)
-    bio = models.TextField(verbose_name="Bio do Carro", blank=True, null=True, max_length=1000)
+    bio = models.TextField(verbose_name="Bio do Carro", blank=True, null=True, max_length=250)
 
     class Meta:
         verbose_name = 'Carro'

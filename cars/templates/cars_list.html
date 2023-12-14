@@ -114,7 +114,11 @@
                                         <a href="{% url 'car_detail' car.pk %}">
                                             <div class="product-box box-shadow">
                                                 <div class="producct-img">
-                                                    <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+                                                    {% if car.photo %}
+                                                        <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}">
+                                                    {% else %}
+                                                        <img src="{% static 'images/Image_not_available.png' %}" alt="">
+                                                    {% endif %}
                                                 </div>
                                                 <div class="product-caption">
                                                     <h4 class="text-info">{{ car.brand }} {{ car.model }}</h4>
