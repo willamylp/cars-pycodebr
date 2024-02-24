@@ -60,8 +60,8 @@
                     </div>
                 </div>
 
-                {% if form_error|length > 0 %}
-                    {% for field, error in form_error.items %}
+                {% if form.errors %}
+                    {% for field, error in form.errors.items %}
                         <div class="alert alert-danger alert-dismissible fade show box-shadow" role="alert">
                             {% if field == 'value' %}
                                 <strong>&rarr; Valor:</strong>
@@ -72,7 +72,7 @@
                             <span>{{ error }}</span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">
-                                    <i class="icon-copy ion-close-round box-shadow"></i>
+                                    <i class="icon-copy ion-close-round"></i>
                                 </span>
                             </button>
                         </div>
