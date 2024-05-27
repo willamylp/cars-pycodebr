@@ -33,3 +33,24 @@ python manage.py runserver
 
 Após isso, o sistema estará pronto para ser acessado em:
 [http://localhost:8000](http://localhost:8000)
+
+---
+
+## Imagens do Projeto
+
+> ### Formulário de Cadastro e Login
+![image](./static/images/project/register_login.png) 
+
+> ### Formulário de Cadastro de Usuários pelos Admins
+![image](./static/images/project/add_user.png) 
+
+> ### Formulário de Cadastro de Novo Carro com Validação
+![image](./static/images/project/new_car_validation.png) 
+
+
+> ### Listagem dos Carros Cadastrados
+![image](./static/images/project/cars_list.png)
+
+> ### Detalhamento do Carro com Confirmação de _Delete_
+![image](./static/images/project/car_detail_detele.png) 
+
