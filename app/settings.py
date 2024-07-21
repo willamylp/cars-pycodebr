@@ -76,6 +76,8 @@ if DEVELOPMENT_MODE:
     }
 
 else:
+    load_dotenv()
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
