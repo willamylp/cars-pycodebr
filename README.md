@@ -26,7 +26,7 @@ Após instalar as dependências, aplique as migrations no banco de dados com o c
 python manage.py migrate
 ```
 
-Agora o projeto jã pode ser inicializado com o comando:
+Agora o projeto já pode ser inicializado com o comando:
 ```bash
 python manage.py runserver
 ```
